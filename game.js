@@ -8,7 +8,6 @@ const gameCtx = gameCanvas.getContext("2d");
 const menuCtx = menuCanvas.getContext("2d");
 
 let lastRenderTime = 0;
-let particles = [];
 const world = {
   size: {
     width: 1000,
@@ -19,16 +18,9 @@ const world = {
 
 }
 
-function random(x) {
-  return Math.floor(Math.random() * x)
-}
+const speed = 100;
 
-function normalize(vector) {
-  let length = (vector.x ** 2 + vector.y ** 2) ** (1 / 2)
-  vector.x /= length
-  vector.y /= length
-  return vector
-}
+const particles = [...Array(world.totalParticles)].map(() => new particle(["food"], world.size.width, world.size.height, speed, world.maxTimeParticle));
 
 function main(currentTime) {
   const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
@@ -44,16 +36,7 @@ window.requestAnimationFrame(main)
 
 function update(time) {
 
-  const speed = 100
 
-  if (particles.length < world.totalParticles) {
-    let vector = { x: random(10) - 5, y: random(10) - 5 }
-    particles.push(
-      new particle("food",
-        random(world.size.width), random(world.size.height),
-        normalize(vector).x * speed, normalize(vector).y * speed)
-    )
-  }
   for (let i = 0; i < particles.length; i++) {
     const pointParticle = particles[i];
 
@@ -62,11 +45,8 @@ function update(time) {
     if (pointParticle.y < 0) pointParticle.y += world.size.height
     if (pointParticle.x > world.size.width) pointParticle.x -= world.size.width
     if (pointParticle.y > world.size.height) pointParticle.y -= world.size.height
-
-    if (pointParticle.time >= world.maxTimeParticle) particles[i] = null
   }
 
-  particles = particles.filter(pointparticle => pointparticle !== null)
   window.particles = particles
 }
 
