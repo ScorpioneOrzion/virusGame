@@ -26,8 +26,6 @@ function main(currentTime) {
   const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
   window.requestAnimationFrame(main)
   lastRenderTime = currentTime
-  // console.log(secondsSinceLastRender)
-
   update(secondsSinceLastRender)
   draw(secondsSinceLastRender)
 }
