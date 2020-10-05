@@ -1,9 +1,10 @@
-import { movingObject } from './movingObject'
+import { movingObject } from './movingObject.js'
 
 export class particle extends movingObject {
   constructor(listStates, widthField, heightField, speed, maxTime) {
     super(widthField, heightField, speed)
-    this.baseValues.push(listStates)
+    /** @type {Array} */
+    this.stateList = listStates
     this.maxTime = maxTime
     this.reset()
     this.time = movingObject.random(this.maxTime)
@@ -11,7 +12,7 @@ export class particle extends movingObject {
 
   reset() {
     super.reset()
-    this.state = this.baseValues[3][0]
+    this.state = listStates[0]
   }
 
   update(time) {
@@ -20,5 +21,11 @@ export class particle extends movingObject {
       this.reset()
       this.time %= this.maxTime
     }
+  }
+
+  next() {
+    let a = this.stateList.indexOf(this.state) + 1
+    if (a < this.stateList.length)
+      this.state = this.stateList[a]
   }
 }

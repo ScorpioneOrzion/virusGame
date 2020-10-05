@@ -10,7 +10,7 @@ export class movingObject {
   reset() {
     this.x = movingObject.random(this.baseValues[0])
     this.y = movingObject.random(this.baseValues[1])
-    this.direction = movingObject.normalize({ x: particle.random(10) - 5, y: particle.random(10) - 5 })
+    this.direction = movingObject.normalize({ x: movingObject.random(10) - 5, y: movingObject.random(10) - 5 })
     this.direction.x *= this.baseValues[2]
     this.direction.y *= this.baseValues[2]
   }
