@@ -20,7 +20,7 @@ const world = {
 
 const speed = 100;
 
-const particles = [...Array(world.totalParticles)].map(() => new particle(["food"], world.size.width, world.size.height, speed, world.maxTimeParticle));
+const particles = [...Array(world.totalParticles)].map(() => new particle(["food", "trash"], world.size.width, world.size.height, speed, world.maxTimeParticle));
 
 function main(currentTime) {
   const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
